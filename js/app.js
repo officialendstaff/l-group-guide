@@ -4,7 +4,7 @@ const PAGE_URLS={
   before:'pages/before-join.html',
   first:'pages/first-day.html',
   work:'pages/work-guide.html',
-  hotel:'pages/hotel-guide.html',
+  qa:'pages/q-and-a.html',
   manual:'pages/manual.html',
   course:'pages/course-bag.html'
 };

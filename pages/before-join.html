@@ -2,7 +2,7 @@
 
 <html lang="ja"><head>
 <meta charset="utf-8"/><meta content="width=device-width,initial-scale=1,viewport-fit=cover" name="viewport"/>
-<title>L GROUP | BEFORE JOIN</title>
+<title>L'GROUP | BEFORE JOIN</title>
 <style>
 :root{--bg:#f7f7f5;--paper:#fff;--ink:#171717;--sub:#6f6d68;--line:#e6e3de;--gold:#aa956e;--soft:#f5f4f1;--dark:#282828}
 *{box-sizing:border-box}html,body{margin:0;background:#ecebe8;color:var(--ink)}body{font-family:"Yu Gothic","Hiragino Kaku Gothic ProN","Meiryo",sans-serif}
@@ -76,11 +76,17 @@ body::after{content:none!important;display:none!important}
 </main>
 <script>
 const copyText='メールアドレス：\n名前：（希望があれば）\n年齢：\n身長：cm\nバスト：カップ\n血液型：\n得意なマッサージ：\n好きな食べ物：\n好きな男性のタイプ：\n似ている芸能人：\n趣味：\n特技：\n性格：\n自己紹介メッセージ：\n自己紹介メッセージは、お客様へのアピール文章です。短文にならないように作成してください。';
-document.getElementById("copyBtn").onclick=async function(){
-try{await navigator.clipboard.writeText(copyText)}catch(e){let t=document.createElement("textarea");t.value=copyText;document.body.appendChild(t);t.select();document.execCommand("copy");t.remove()}
-this.textContent="コピーしました";setTimeout(()=>this.textContent="プロフィール作成フォーマットをコピー",1400)
-};
-</script></div><script>
+const copyBtn=document.getElementById('copyBtn');
+if(copyBtn) copyBtn.addEventListener('click',async function(){
+ let ok=false;
+ try{if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(copyText);ok=true;}}catch(e){}
+ if(!ok){
+  const ta=document.createElement('textarea');ta.value=copyText;ta.setAttribute('readonly','');
+  ta.style.position='fixed';ta.style.left='-9999px';document.body.appendChild(ta);ta.focus();ta.select();ta.setSelectionRange(0,ta.value.length);
+  try{ok=document.execCommand('copy');}catch(e){} ta.remove();
+ }
+ if(ok){this.textContent='コピーしました';this.disabled=true;setTimeout(()=>{this.textContent='プロフィール作成フォーマットをコピー';this.disabled=false;},1800);}
+});
 (function(){
   const btn=document.getElementById('copyBtn');
   if(!btn) return;
