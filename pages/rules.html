@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1,viewport-fit=cover" name="viewport"/>
+<title>L GROUP | RULES</title>
+<style>
+:root{
+  --bg:#f7f6f3;--paper:#fff;--ink:#171717;--sub:#6e6a64;
+  --line:#e8e3dc;--gold:#b7a27b;--soft:#f2efe9;
+  --warn:#765249;--warnbg:#faf7f5;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#eceae6;color:var(--ink)}
+body{font-family:"Yu Gothic","Hiragino Kaku Gothic ProN","Meiryo",sans-serif}
+.page{min-height:100vh;background:var(--bg)}
+header{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.97);border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}
+.brand{height:54px;display:flex;align-items:center;gap:10px;padding:0 15px}
+.logo{width:30px;height:30px;border:1px solid #cdbf9f;display:grid;place-items:center;background:#fff;font:18px Georgia,serif}
+.brandname{font:14px Georgia,serif;letter-spacing:.08em}
+.tag{margin-top:2px;color:#9a948b;font-size:7px;letter-spacing:.13em}
+.navwrap{overflow-x:auto;scrollbar-width:none}
+.navwrap::-webkit-scrollbar{display:none}
+nav{display:flex;width:max-content;padding:0 7px}
+nav a{height:39px;display:flex;align-items:center;padding:0 11px;text-decoration:none;color:#77726c;font-size:9px;white-space:nowrap;border-bottom:2px solid transparent}
+nav a.active{color:#111;border-bottom-color:var(--gold)}
+main{padding-bottom:46px}
+.hero{padding:30px 18px 25px}
+.kicker{font-size:9px;letter-spacing:.2em;color:#a38c64;font-weight:700}
+.hero h1{margin:7px 0 9px;font:400 34px Georgia,"Yu Mincho",serif;letter-spacing:.045em}
+.hero p{margin:0;color:var(--sub);font-size:12px;line-height:1.9}
+.section{margin:0 14px 22px;background:var(--paper);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 8px 25px rgba(35,30,24,.04)}
+.photo{width:100%;height:190px;object-fit:cover;display:block;background:#eee}
+.photo.schedule{object-position:center 48%}
+.photo.arrival{object-position:center 42%}
+.photo.dress{object-position:center 38%}
+.body{padding:19px 18px 20px}
+.en{font-size:8.5px;letter-spacing:.18em;color:#a38c64;font-weight:700}
+.body h2{margin:6px 0 15px;font:500 21px "Yu Mincho","Hiragino Mincho ProN",serif}
+.deadlines{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:14px}
+.deadline{padding:13px 8px 12px}
+.deadline:first-child{border-right:1px solid var(--line)}
+.deadline b{display:block;font-size:12px;margin-bottom:5px}
+.deadline span{font-size:10.5px;color:var(--sub);line-height:1.55}
+.note{font-size:11.5px;line-height:1.85;color:#45413c}
+.line-note{margin-top:12px;padding:11px 12px;background:var(--soft);border-radius:8px;font-size:11px;line-height:1.75}
+.line-note b{font-weight:700}
+.timebox{text-align:center;padding:7px 0 15px}
+.timebox .num{font:500 31px Georgia,"Yu Mincho",serif;letter-spacing:.02em}
+.timebox .label{margin-top:3px;font-size:12px;font-weight:700}
+.timecopy{padding-top:13px;border-top:1px solid var(--line);font-size:11.5px;line-height:1.9;color:#45413c}
+.dressgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.dressbox{padding:13px 12px;background:#faf9f7;border:1px solid var(--line);border-radius:10px}
+.dressbox strong{display:block;margin-bottom:8px;font-size:9px;letter-spacing:.14em;color:#9d875e}
+.dressbox.ng strong{color:#81645e}
+.dressbox ul{margin:0;padding-left:16px}
+.dressbox li{font-size:10.5px;line-height:1.85}
+.prohibited{margin:28px 14px 0;padding:23px 18px 8px;background:var(--warnbg);border:1px solid #e6dcd7;border-radius:16px}
+.prohibited .en{color:var(--warn)}
+.prohibited h2{margin:6px 0 7px;font:500 23px "Yu Mincho","Hiragino Mincho ProN",serif}
+.prohibited .lead{margin:0 0 13px;font-size:11px;line-height:1.8;color:#71635e}
+.ban{padding:15px 0;border-top:1px solid #e4d9d4}
+.ban h3{margin:0 0 5px;font-size:12px}
+.ban p{margin:0;color:#514945;font-size:10.8px;line-height:1.8}
+footer{text-align:center;padding:29px 10px 34px;color:#a7a098;font-size:8px;letter-spacing:.16em}
+@media(min-width:700px){.page{width:430px;margin:auto;box-shadow:0 0 32px rgba(0,0,0,.08)}}
+</style>
+<style>
+html,body{margin:0!important;min-height:0!important;height:auto!important;overflow-x:hidden!important;background:#fff!important}
+body{padding:0!important}
+header,footer{display:none!important}
+.page,.shell,.app,.wrap{min-height:0!important;box-shadow:none!important;margin-left:auto!important;margin-right:auto!important}
+body::after{content:none!important;display:none!important}
+</style></head>
+<body>
+<div class="page">
+
+<main>
+<section class="hero">
+<div class="kicker">WORKING RULES</div>
+<h1>RULES</h1>
+<p>勤務するうえで必要な基本ルールです。<br/>出勤前に必ずご確認ください。</p>
+</section>
+<section class="section">
+<img alt="月間スケジュールとスマートフォン" class="photo schedule" src="https://images.pexels.com/photos/8533225/pexels-photo-8533225.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1200"/>
+<div class="body">
+<div class="en">SHIFT SCHEDULE</div>
+<h2>勤務予定</h2>
+<div class="deadlines">
+<div class="deadline"><b>15日まで</b><span>当月16日〜<br/>月末分を提出</span></div>
+<div class="deadline"><b>月末まで</b><span>翌月1日〜<br/>15日分を提出</span></div>
+</div>
+<div class="note">提出後の追加・変更、時間変更などがある場合は、その都度ご連絡ください。</div>
+<div class="line-note">変更・追加などの連絡は、<b>すべてグループLINE</b>へお願いします。</div>
+</div>
+</section>
+<section class="section">
+<img alt="腕時計で出勤時間を確認する女性" class="photo arrival" src="../images/rules-arrival-final.webp"/>
+<div class="body">
+<div class="en">ARRIVAL TIME</div>
+<h2>出勤時間</h2>
+<div class="timebox">
+<div class="num">10〜15分前</div>
+<div class="label">お店に到着してください。</div>
+</div>
+<div class="timecopy">出勤時間は、<b>お店を出発する時間</b>です。<br/>接客備品の準備やメイク直しなどを含めて、10〜15分前にはお店に到着してください。</div>
+</div>
+</section>
+<section class="section">
+<img alt="鏡の前で身だしなみを確認する女性" class="photo dress" src="https://images.pexels.com/photos/6924344/pexels-photo-6924344.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1200"/>
+<div class="body">
+<div class="en">DRESS CODE</div>
+<h2>接客服装</h2>
+<div class="dressgrid">
+<div class="dressbox">
+<strong>REQUIRED</strong>
+<ul>
+<li>清潔感のある服装</li>
+<li>スカート</li>
+<li>ヒール</li>
+<li>清潔感のある髪型・メイク</li>
+</ul>
+</div>
+<div class="dressbox ng">
+<strong>NOT ALLOWED</strong>
+<ul>
+<li>ノーメイク</li>
+<li>奇抜な髪型やカラー</li>
+<li>施術が困難なネイル</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section class="prohibited">
+<div class="en">PROHIBITED</div>
+<h2>禁止事項</h2>
+<p class="lead">以下の行為は禁止しています。必ずご確認ください。</p>
+<div class="ban">
+<h3>追加料金の授受</h3>
+<p>店舗で設定しているオプション以外での追加料金の授受は禁止です。個人オプション・裏オプションなどでの追加料金を含みます。</p>
+</div>
+<div class="ban">
+<h3>情報・マニュアルの外部流出</h3>
+<p>店舗で知り得た情報や、マニュアル内容を外部へ流出させる行為は禁止です。</p>
+</div>
+<div class="ban">
+<h3>類似他社との掛け持ち勤務</h3>
+<p>違法マンション型メンズエステを含め、類似他社との掛け持ち勤務は禁止です。</p>
+</div>
+<div class="ban">
+<h3>法令・当社規約に抵触する行為</h3>
+<p>売春防止法、風営法及び当社規約に抵触する行為は禁止です。</p>
+</div>
+</section>
+</main>
+
+</div>
+<script>
+(function(){
+  function report(){
+    const h=Math.max(document.documentElement.scrollHeight,document.body.scrollHeight);
+    parent.postMessage({type:'lg-height',height:h},'*');
+  }
+  if(window.ResizeObserver) new ResizeObserver(()=>requestAnimationFrame(report)).observe(document.documentElement);
+  addEventListener('load',()=>setTimeout(report,30));
+  addEventListener('resize',()=>setTimeout(report,30));
+  setTimeout(report,150); setTimeout(report,600);
+})();
+</script></body>
+</html>
