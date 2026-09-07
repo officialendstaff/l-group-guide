@@ -1,5 +1,5 @@
 L'GROUP PRIVATE GUIDE
-
-暗証番号: 2525
-
-このフォルダ内の index.html / pages / css / js / images を同じ階層構成のままアップロードしてください。
+Upload the CONTENTS of this folder to the GitHub repository root.
+Password: 2525
+Auto lock: 60 minutes.
+Existing completed page layouts are preserved. Images stay external WebP; no all-in-one Base64 embedding.
