@@ -1,6 +1,7 @@
-<!doctype html>
-<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>L'GROUP | Q&A</title>
+<!DOCTYPE html>
+
+<html lang="ja"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1,viewport-fit=cover" name="viewport"/>
+<title>L'GROUP | Q&amp;A</title>
 <style>
 :root{--bg:#f7f7f5;--paper:#fff;--ink:#171717;--sub:#706d67;--line:#e6e3de;--gold:#aa956e;--soft:#f4f2ed}
 *{box-sizing:border-box}html,body{margin:0;background:#fff;color:var(--ink)}body{font-family:"Yu Gothic","Hiragino Kaku Gothic ProN","Meiryo",sans-serif}
@@ -9,30 +10,53 @@ main{padding:27px 14px 48px}.pagehead{padding:0 2px 22px}.kicker{font:700 8px Ge
 .section{margin-top:4px}.section-title{padding:0 2px 9px;border-bottom:1px solid #ddd9d2}.section-title h2{margin:0;font:400 25px Georgia,serif}.section-title p{margin:4px 0 0;font-size:10px;color:#777}
 .qa-list{margin-top:11px;display:grid;gap:8px}.qa-row{width:100%;min-height:56px;padding:0 14px;border:1px solid var(--line);border-radius:12px;background:#fff;display:flex;align-items:center;justify-content:space-between;text-align:left;color:#37342f}.qa-row span:first-child{font-size:11px;font-weight:600}.qa-row .arrow{font:18px Georgia,serif;color:var(--gold)}
 .note{margin-top:12px;padding:13px 14px;border:1px dashed #d7d1c5;border-radius:11px;background:#fbfaf8;font-size:10px;line-height:1.7;color:#777}
-
-.common-header{position:sticky;top:0;z-index:1000;background:rgba(251,250,247,.985);border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}
-.head-row{height:70px;padding:7px 14px 5px;display:flex;align-items:center;justify-content:space-between}
-.logo-button{display:flex;align-items:center;justify-content:flex-start;width:148px;height:56px;padding:0;border:0;background:transparent;overflow:hidden;text-decoration:none}
-.logo-button img{width:142px;height:54px;object-fit:contain;object-position:left center;display:block}
-.lockout{border:0;background:transparent;color:#8a857d;font:9.5px Georgia,"Times New Roman",serif;letter-spacing:.08em;padding:10px 2px}
-.nav-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;padding:4px 14px 11px}
-.nav-btn{min-width:0;min-height:38px;display:flex;align-items:center;justify-content:center;border:1px solid #ddd8cf;background:#fff;border-radius:8px;color:#706b64;font:9.2px Georgia,"Times New Roman",serif;letter-spacing:.015em;white-space:nowrap;text-decoration:none}
-.nav-btn.active{background:#272622;color:#fff;border-color:#272622;font-weight:600}
+</style><style id="lg-common-nav-style">
+.lg-common-header{background:#fff;border:1px solid #eee9e2;border-top:0;position:sticky;top:0;z-index:1000;width:100%;max-width:430px;margin:0 auto;box-sizing:border-box}
+.lg-header-row{height:55px;display:flex;align-items:center;padding:0 15px;background:#fff}
+.lg-logo-link{display:inline-flex;align-items:center;width:72px;height:50px;text-decoration:none}
+.lg-logo-link img{display:block;width:72px;height:50px;object-fit:contain;object-position:left center}
+.lg-common-nav,.lg-bottom-nav{display:grid;grid-template-columns:repeat(3,1fr);background:#fff;border-top:1px solid #eee9e2;width:100%;max-width:430px;margin:0 auto;box-sizing:border-box}
+.lg-nav-link{min-height:34px;display:grid;place-items:center;text-decoration:none;font:9px Georgia,"Times New Roman",serif;color:#817a70;border-right:1px solid #eee9e2;border-bottom:1px solid #eee9e2;box-sizing:border-box;white-space:nowrap}
+.lg-nav-link:nth-child(3n){border-right:0}
+.lg-nav-link.active{color:#111;background:#f7f3ec;box-shadow:inset 0 -2px 0 #b08a45}
+.lg-bottom-wrap{background:#fff;margin-top:16px}
+/* TOPだけは、上下メニューを残したまま1画面に収める */
+body.lg-top-page{height:100dvh;overflow:hidden}
+body.lg-top-page #portal{height:100dvh;display:flex!important;flex-direction:column;overflow:hidden}
+body.lg-top-page .lg-common-header{position:static;flex:0 0 auto}
+body.lg-top-page .lg-header-row{height:50px;padding:0 12px}
+body.lg-top-page .lg-logo-link,body.lg-top-page .lg-logo-link img{width:66px;height:46px}
+body.lg-top-page .lg-nav-link,body.lg-top-page .lg-bottom-nav .lg-nav-link{min-height:30px;font-size:8.4px}
+body.lg-top-page .content-shell{flex:1 1 auto;min-height:0;overflow:hidden;padding:5px 10px!important;box-sizing:border-box}
+body.lg-top-page #topPage{height:100%;min-height:0}
+body.lg-top-page .top-grid{height:100%;grid-template-rows:repeat(3,minmax(0,1fr));gap:5px 8px!important}
+body.lg-top-page .top-card{min-height:0;display:flex;flex-direction:column;text-decoration:none;color:inherit}
+body.lg-top-page .top-copy{min-height:0!important;padding:5px 10px 4px!important;flex:0 0 auto}
+body.lg-top-page .top-copy b{font-size:14.5px!important;line-height:1.02!important;margin-bottom:2px!important}
+body.lg-top-page .top-copy span{font-size:8.6px!important;line-height:1.12!important}
+body.lg-top-page .top-photo{height:auto!important;min-height:0;flex:1 1 auto}
+body.lg-top-page .lg-bottom-wrap{flex:0 0 auto;margin-top:0}
+</style><style>
+/* 2026-09-07 common navigation: fixed design */
+.nav-grid,.bottom-nav{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:0!important;padding:0!important;background:#fff!important;border-top:1px solid #ece7df!important;border-left:1px solid #ece7df!important}
+.nav-btn,.bottom-btn,.nav-grid a,.bottom-nav a{box-sizing:border-box!important;min-width:0!important;min-height:33px!important;height:33px!important;display:flex!important;align-items:center!important;justify-content:center!important;margin:0!important;padding:0 3px!important;border:0!important;border-right:1px solid #ece7df!important;border-bottom:1px solid #ece7df!important;border-radius:0!important;background:#fff!important;color:#756e65!important;text-decoration:none!important;font:8.5px Georgia,"Times New Roman",serif!important;font-weight:400!important;letter-spacing:0!important;white-space:nowrap!important;box-shadow:none!important}
+.nav-btn.active,.bottom-btn.active,.nav-grid a.active,.bottom-nav a.active{background:#fff!important;color:#2b251e!important;font-weight:400!important;border-bottom:2px solid #b08a4b!important}
+/* LOCK is intentionally not used */
+.lock,.lock-btn,.lock-button,.lock-label,[data-lock]{display:none!important}
+</style><style id="lg-menu-final-correction">
+/* Final common menu correction: connected 3 x 2 table, no gaps. */
+.lg-common-header{width:100%!important;max-width:430px!important;margin:0 auto!important;box-sizing:border-box!important;}
+.lg-common-nav,.lg-bottom-nav{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:0!important;width:100%!important;max-width:430px!important;margin:0 auto!important;padding:0!important;background:#fff!important;border-top:1px solid #e8e1d7!important;border-left:1px solid #e8e1d7!important;box-sizing:border-box!important;}
+.lg-nav-link{box-sizing:border-box!important;width:100%!important;min-width:0!important;height:34px!important;min-height:34px!important;margin:0!important;padding:0 2px!important;display:flex!important;align-items:center!important;justify-content:center!important;border:0!important;border-right:1px solid #e8e1d7!important;border-bottom:1px solid #e8e1d7!important;border-radius:0!important;background:#fff!important;box-shadow:none!important;text-decoration:none!important;color:#756e65!important;font:8.5px Georgia,"Times New Roman",serif!important;font-weight:400!important;letter-spacing:0!important;white-space:nowrap!important;}
+.lg-nav-link:nth-child(3n){border-right:1px solid #e8e1d7!important;}
+.lg-nav-link.active{background:#fff!important;color:#17130f!important;font-weight:600!important;box-shadow:inset 0 -2px 0 #b08a45!important;}
+.lg-bottom-wrap{width:100%!important;max-width:430px!important;margin:16px auto 0!important;padding:0!important;background:#fff!important;box-sizing:border-box!important;}
+body.lg-top-page .lg-bottom-wrap{display:none!important;}
 </style></head>
-<body><div class="page"><header class="common-header">
-<div class="head-row">
-<a class="logo-button" href="index.html" aria-label="TOPへ戻る"><img src="images/lgroup-logo.webp" alt="L'GROUP"></a>
-<span class="lockout">PRIVATE GUIDE</span>
-</div>
-<nav class="nav-grid" aria-label="メインメニュー">
-<a class="nav-btn" href="01_RULES.html">RULES</a>
-<a class="nav-btn" href="02_BEFORE_JOIN_REVISED_V4.html">BEFORE JOIN</a>
-<a class="nav-btn" href="03_FIRST_DAY.html">FIRST DAY</a>
-<a class="nav-btn" href="04_WORK_GUIDE.html">WORK GUIDE</a>
-<a class="nav-btn active" href="q-and-a.html">Q&amp;A</a>
-<a class="nav-btn" href="manual.html">MANUAL</a>
-</nav>
-</header><main>
+<body><header class="lg-common-header">
+<div class="lg-header-row"><a aria-label="TOP" class="lg-logo-link" href="index.html"><img alt="L'GROUP" src="images/lgroup-logo.webp"/></a></div>
+<nav aria-label="Page navigation" class="lg-common-nav"><a class="lg-nav-link" data-page="rules" href="01_RULES.html">RULES</a><a class="lg-nav-link" data-page="before" href="02_BEFORE_JOIN_REVISED_V4.html">BEFORE JOIN</a><a class="lg-nav-link" data-page="first" href="03_FIRST_DAY.html">FIRST DAY</a><a class="lg-nav-link" data-page="work" href="04_WORK_GUIDE.html">WORK GUIDE</a><a class="lg-nav-link active" data-page="qa" href="q-and-a.html">Q&amp;A</a><a class="lg-nav-link" data-page="manual" href="manual.html">MANUAL</a></nav>
+</header><div class="page"><main>
 <div class="pagehead"><div class="kicker">THERAPIST PRIVATE GUIDE</div><h1>Q&amp;A</h1><p>よくある質問</p></div>
 <section class="section"><div class="section-title"><h2>QUESTIONS</h2><p>質問項目</p></div>
 <div class="qa-list">
@@ -43,4 +67,4 @@ main{padding:27px 14px 48px}.pagehead{padding:0 2px 22px}.kicker{font:700 8px Ge
 <div class="note">ここにQ&amp;Aの内容を追加していく土台です。</div>
 </section></main></div>
 <script>(function(){function r(){parent.postMessage({type:'lg-height',height:document.documentElement.scrollHeight},'*')};addEventListener('load',()=>setTimeout(r,30));if(window.ResizeObserver)new ResizeObserver(()=>requestAnimationFrame(r)).observe(document.documentElement);setTimeout(r,150)})();</script>
-</body></html>
+<div class="lg-bottom-wrap"><nav aria-label="Page navigation" class="lg-bottom-nav"><a class="lg-nav-link" data-page="rules" href="01_RULES.html">RULES</a><a class="lg-nav-link" data-page="before" href="02_BEFORE_JOIN_REVISED_V4.html">BEFORE JOIN</a><a class="lg-nav-link" data-page="first" href="03_FIRST_DAY.html">FIRST DAY</a><a class="lg-nav-link" data-page="work" href="04_WORK_GUIDE.html">WORK GUIDE</a><a class="lg-nav-link active" data-page="qa" href="q-and-a.html">Q&amp;A</a><a class="lg-nav-link" data-page="manual" href="manual.html">MANUAL</a></nav></div></body></html>
