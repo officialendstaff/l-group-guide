@@ -9,8 +9,30 @@ main{padding:27px 14px 48px}.pagehead{padding:0 2px 22px}.kicker{font:700 8px Ge
 .section{margin-top:4px}.section-title{padding:0 2px 9px;border-bottom:1px solid #ddd9d2}.section-title h2{margin:0;font:400 25px Georgia,serif}.section-title p{margin:4px 0 0;font-size:10px;color:#777}
 .qa-list{margin-top:11px;display:grid;gap:8px}.qa-row{width:100%;min-height:56px;padding:0 14px;border:1px solid var(--line);border-radius:12px;background:#fff;display:flex;align-items:center;justify-content:space-between;text-align:left;color:#37342f}.qa-row span:first-child{font-size:11px;font-weight:600}.qa-row .arrow{font:18px Georgia,serif;color:var(--gold)}
 .note{margin-top:12px;padding:13px 14px;border:1px dashed #d7d1c5;border-radius:11px;background:#fbfaf8;font-size:10px;line-height:1.7;color:#777}
+
+.common-header{position:sticky;top:0;z-index:1000;background:rgba(251,250,247,.985);border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}
+.head-row{height:70px;padding:7px 14px 5px;display:flex;align-items:center;justify-content:space-between}
+.logo-button{display:flex;align-items:center;justify-content:flex-start;width:148px;height:56px;padding:0;border:0;background:transparent;overflow:hidden;text-decoration:none}
+.logo-button img{width:142px;height:54px;object-fit:contain;object-position:left center;display:block}
+.lockout{border:0;background:transparent;color:#8a857d;font:9.5px Georgia,"Times New Roman",serif;letter-spacing:.08em;padding:10px 2px}
+.nav-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;padding:4px 14px 11px}
+.nav-btn{min-width:0;min-height:38px;display:flex;align-items:center;justify-content:center;border:1px solid #ddd8cf;background:#fff;border-radius:8px;color:#706b64;font:9.2px Georgia,"Times New Roman",serif;letter-spacing:.015em;white-space:nowrap;text-decoration:none}
+.nav-btn.active{background:#272622;color:#fff;border-color:#272622;font-weight:600}
 </style></head>
-<body><div class="page"><main>
+<body><div class="page"><header class="common-header">
+<div class="head-row">
+<a class="logo-button" href="index.html" aria-label="TOPへ戻る"><img src="images/lgroup-logo.webp" alt="L'GROUP"></a>
+<span class="lockout">PRIVATE GUIDE</span>
+</div>
+<nav class="nav-grid" aria-label="メインメニュー">
+<a class="nav-btn" href="01_RULES.html">RULES</a>
+<a class="nav-btn" href="02_BEFORE_JOIN_REVISED_V4.html">BEFORE JOIN</a>
+<a class="nav-btn" href="03_FIRST_DAY.html">FIRST DAY</a>
+<a class="nav-btn" href="04_WORK_GUIDE.html">WORK GUIDE</a>
+<a class="nav-btn active" href="q-and-a.html">Q&amp;A</a>
+<a class="nav-btn" href="manual.html">MANUAL</a>
+</nav>
+</header><main>
 <div class="pagehead"><div class="kicker">THERAPIST PRIVATE GUIDE</div><h1>Q&amp;A</h1><p>よくある質問</p></div>
 <section class="section"><div class="section-title"><h2>QUESTIONS</h2><p>質問項目</p></div>
 <div class="qa-list">

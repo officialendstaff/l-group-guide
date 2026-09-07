@@ -17,13 +17,35 @@ main{padding:28px 16px 46px}.eyebrow{font:600 11px Georgia,serif;color:var(--gol
 .blankbox{margin-top:9px;height:24px;border-radius:7px;background:#f8f6f1;border:1px dashed #ddd5c7}
 @media(min-width:431px){body{padding:24px 0}.page{box-shadow:0 0 40px rgba(0,0,0,.08)}}
 
-.desc{margin-top:8px;font-size:11px;line-height:1.75;color:#565148}.instruction{margin:18px 0 12px;padding:13px 14px;background:#fbfaf7;border:1px solid #e6dfd2;border-radius:10px;font-size:12px;line-height:1.8;color:#48443d}.instruction strong{font-weight:800}.caution{margin:13px 0 4px;padding:12px 13px;border-left:3px solid var(--gold2);background:#fbfaf7;border-radius:8px;font-size:11px;line-height:1.75;color:#554f46}</style><style>
+.desc{margin-top:8px;font-size:11px;line-height:1.75;color:#565148}.instruction{margin:18px 0 12px;padding:13px 14px;background:#fbfaf7;border:1px solid #e6dfd2;border-radius:10px;font-size:12px;line-height:1.8;color:#48443d}.instruction strong{font-weight:800}.caution{margin:13px 0 4px;padding:12px 13px;border-left:3px solid var(--gold2);background:#fbfaf7;border-radius:8px;font-size:11px;line-height:1.75;color:#554f46}
+.common-header{position:sticky;top:0;z-index:1000;background:rgba(251,250,247,.985);border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}
+.head-row{height:70px;padding:7px 14px 5px;display:flex;align-items:center;justify-content:space-between}
+.logo-button{display:flex;align-items:center;justify-content:flex-start;width:148px;height:56px;padding:0;border:0;background:transparent;overflow:hidden;text-decoration:none}
+.logo-button img{width:142px;height:54px;object-fit:contain;object-position:left center;display:block}
+.lockout{border:0;background:transparent;color:#8a857d;font:9.5px Georgia,"Times New Roman",serif;letter-spacing:.08em;padding:10px 2px}
+.nav-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;padding:4px 14px 11px}
+.nav-btn{min-width:0;min-height:38px;display:flex;align-items:center;justify-content:center;border:1px solid #ddd8cf;background:#fff;border-radius:8px;color:#706b64;font:9.2px Georgia,"Times New Roman",serif;letter-spacing:.015em;white-space:nowrap;text-decoration:none}
+.nav-btn.active{background:#272622;color:#fff;border-color:#272622;font-weight:600}
+</style><style>
 html,body{margin:0!important;min-height:0!important;height:auto!important;overflow-x:hidden!important;background:#fff!important}
 body{padding:0!important}
 header,footer{display:none!important}
 .page,.shell,.app,.wrap{min-height:0!important;box-shadow:none!important;margin-left:auto!important;margin-right:auto!important}
 body::after{content:none!important;display:none!important}
-</style></head><body><div class="page">
+</style></head><body><div class="page"><header class="common-header">
+<div class="head-row">
+<a class="logo-button" href="index.html" aria-label="TOPへ戻る"><img src="images/lgroup-logo.webp" alt="L'GROUP"></a>
+<span class="lockout">PRIVATE GUIDE</span>
+</div>
+<nav class="nav-grid" aria-label="メインメニュー">
+<a class="nav-btn" href="01_RULES.html">RULES</a>
+<a class="nav-btn" href="02_BEFORE_JOIN_REVISED_V4.html">BEFORE JOIN</a>
+<a class="nav-btn active" href="03_FIRST_DAY.html">FIRST DAY</a>
+<a class="nav-btn" href="04_WORK_GUIDE.html">WORK GUIDE</a>
+<a class="nav-btn" href="q-and-a.html">Q&amp;A</a>
+<a class="nav-btn" href="manual.html">MANUAL</a>
+</nav>
+</header>
 
 <main><div class="eyebrow">COURSE BAG</div><h1 class="title">コースバッグの中身</h1><p class="sub">出発前に、バッグの中身と必要な準備物を確認してください。</p>
 <div class="hero"><img alt="コースバッグ" src="../images/course-bag-01.webp"/></div>
