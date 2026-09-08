@@ -249,45 +249,139 @@ body.lg-top-page .lg-bottom-wrap{flex:0 0 auto;margin-top:0}
 .lg-bottom-wrap{width:100%!important;max-width:430px!important;margin:16px auto 0!important;padding:0!important;background:#fff!important;box-sizing:border-box!important;}
 body.lg-top-page .lg-bottom-wrap{display:none!important;}
 </style>
-<style id="lgroup-site-lock-style">
-#lgSiteLock{position:fixed;inset:0;z-index:999999;background:#f3f0ea;display:flex;align-items:center;justify-content:center;padding:20px;font-family:"Yu Mincho","Hiragino Mincho ProN",serif}
-#lgSiteLock *{box-sizing:border-box}
-#lgSiteLock .lg-lock-card{width:min(100%,370px);background:#fbfaf7;border:1px solid #ddd5ca;border-radius:20px;padding:28px 24px 24px;box-shadow:0 20px 55px rgba(38,32,25,.10);text-align:center}
-#lgSiteLock .lg-lock-logo{width:118px;height:72px;object-fit:contain;margin:0 auto 14px;display:block}
-#lgSiteLock .lg-lock-eyebrow{font:9px Georgia,"Times New Roman",serif;letter-spacing:.20em;color:#a18350;margin-bottom:6px}
-#lgSiteLock .lg-lock-title{font:400 24px Georgia,"Times New Roman",serif;letter-spacing:.05em;color:#1f1c18;margin:0 0 6px}
-#lgSiteLock .lg-lock-sub{font-size:10px;line-height:1.7;color:#746d64;margin:0 0 18px}
-#lgSiteLock .lg-pin-dots{height:32px;display:flex;align-items:center;justify-content:center;gap:13px;margin-bottom:17px}
-#lgSiteLock .lg-pin-dot{width:9px;height:9px;border-radius:50%;border:1px solid #b8afa3;background:transparent}
-#lgSiteLock .lg-pin-dot.on{background:#a9874f;border-color:#a9874f}
-#lgSiteLock .lg-keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-width:250px;margin:0 auto}
-#lgSiteLock .lg-key{height:48px;border:1px solid #ddd6cc;border-radius:12px;background:#fff;color:#28231e;font:17px Georgia,"Times New Roman",serif;cursor:pointer}
-#lgSiteLock .lg-key:active{background:#eee8df}
-#lgSiteLock .lg-key.lg-clear{font-size:10px;letter-spacing:.08em;color:#81796f}
-#lgSiteLock .lg-lock-error{height:20px;margin-top:11px;font-size:10px;color:#9d4d45}
-#lgSiteLock .lg-lock-foot{margin-top:12px;padding-top:12px;border-top:1px solid #e4ded5;font:8px Georgia,"Times New Roman",serif;letter-spacing:.14em;color:#9b9287}
-body.lg-site-locked{overflow:hidden!important}
+<style id="lg-lock-v2-style">
+:root{--lg-gold:#c8a66a;--lg-gold2:#f0d79c;--lg-ink:#080808}
+#lgLockV2{
+  position:fixed;inset:0;z-index:2147483647;overflow:auto;
+  background:
+    radial-gradient(circle at 50% 4%,rgba(255,255,255,.09),transparent 20%),
+    linear-gradient(90deg,
+      #070707 0%,#17130e 7%,#090909 15%,#050505 30%,
+      #0c0b0a 50%,#050505 70%,#090909 85%,#17130e 93%,#070707 100%);
+  color:#fff;font-family:"Yu Mincho","Hiragino Mincho ProN","Noto Serif JP",serif;
+}
+#lgLockV2 *{box-sizing:border-box}
+#lgLockV2::before,#lgLockV2::after{
+  content:"";position:fixed;top:0;bottom:0;width:2px;pointer-events:none;
+  background:linear-gradient(180deg,transparent 0%,#8b692f 7%,#f2cc75 35%,#8b692f 78%,transparent 100%);
+  box-shadow:0 0 22px rgba(225,172,76,.55)
+}
+#lgLockV2::before{left:7.5%} #lgLockV2::after{right:7.5%}
+#lgLockV2 .lg-lock-stage{
+  min-height:100dvh;max-width:430px;margin:0 auto;padding:34px 24px 28px;
+  position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;
+}
+#lgLockV2 .lg-lock-stage::before{
+  content:"";position:absolute;inset:0;
+  background:
+    linear-gradient(180deg,transparent 0 74%,rgba(200,166,106,.08) 74% 75%,transparent 75%),
+    repeating-linear-gradient(104deg,transparent 0 70px,rgba(200,166,106,.035) 71px 72px,transparent 73px 145px);
+  opacity:.65;pointer-events:none
+}
+#lgLockV2 .lg-lock-brand{position:relative;z-index:1;text-align:center;margin-bottom:16px}
+#lgLockV2 .lg-lock-brand img{
+  display:block;width:132px;height:76px;object-fit:contain;margin:0 auto 7px;
+  filter:drop-shadow(0 0 10px rgba(213,168,88,.20))
+}
+#lgLockV2 .lg-lock-tag{
+  font:8px Georgia,"Times New Roman",serif;letter-spacing:.28em;color:#e6e0d5;margin-top:-3px
+}
+#lgLockV2 .lg-lock-copy{
+  margin-top:15px;font-size:16px;letter-spacing:.18em;color:#f2eee7;
+}
+#lgLockV2 .lg-lock-rule{
+  width:138px;height:1px;margin:15px auto 0;
+  background:linear-gradient(90deg,transparent,#b89556 30%,#f2d796 50%,#b89556 70%,transparent)
+}
+#lgLockV2 .lg-lock-panel{
+  position:relative;z-index:1;width:min(100%,334px);
+  padding:21px 23px 22px;border:1px solid rgba(224,190,124,.75);border-radius:18px;
+  background:linear-gradient(180deg,rgba(20,20,20,.94),rgba(5,5,5,.96));
+  box-shadow:0 0 0 1px rgba(255,255,255,.02) inset,0 0 26px rgba(207,158,70,.12),0 28px 55px rgba(0,0,0,.48);
+}
+#lgLockV2 .lg-lock-icon{
+  width:25px;height:22px;margin:0 auto 9px;border:2px solid #d7b56d;border-radius:4px;position:relative
+}
+#lgLockV2 .lg-lock-icon::before{
+  content:"";position:absolute;width:15px;height:12px;border:2px solid #d7b56d;border-bottom:0;border-radius:12px 12px 0 0;
+  left:3px;top:-12px
+}
+#lgLockV2 .lg-lock-title{font-size:15px;letter-spacing:.08em;text-align:center;margin:0}
+#lgLockV2 .lg-lock-en{
+  margin:5px 0 14px;text-align:center;font:8px Georgia,"Times New Roman",serif;letter-spacing:.25em;color:#d8bd87
+}
+#lgLockV2 .lg-pin-dots{display:flex;justify-content:center;gap:17px;margin:4px 0 18px}
+#lgLockV2 .lg-pin-dot{
+  width:12px;height:12px;border:1px solid #d9c18f;border-radius:50%;background:transparent;
+  transition:.15s ease
+}
+#lgLockV2 .lg-pin-dot.on{background:#d7b56d;box-shadow:0 0 10px rgba(215,181,109,.55)}
+#lgLockV2 .lg-keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:11px 14px;max-width:245px;margin:0 auto}
+#lgLockV2 .lg-key{
+  width:60px;height:60px;border-radius:50%;border:1px solid rgba(218,185,119,.82);
+  color:#fff;background:radial-gradient(circle at 35% 25%,#222,#080808 66%);
+  font:25px Georgia,"Times New Roman",serif;display:grid;place-items:center;margin:auto;cursor:pointer;
+  box-shadow:0 4px 12px rgba(0,0,0,.28);-webkit-tap-highlight-color:transparent
+}
+#lgLockV2 .lg-key:active{transform:scale(.96);background:#201a12}
+#lgLockV2 .lg-key.small{font-size:11px;letter-spacing:.06em;color:#d7c6a5}
+#lgLockV2 .lg-lock-error{height:18px;margin-top:11px;text-align:center;font-size:10px;color:#e69a8c}
+#lgLockV2 .lg-lock-bottom{
+  position:relative;z-index:1;text-align:center;margin-top:22px;color:#ddd8d0;font-size:9px;line-height:1.9;letter-spacing:.05em
+}
+#lgLockV2 .lg-lock-bottom::before{
+  content:"";display:block;width:48px;height:1px;margin:0 auto 12px;background:#a9874f
+}
+body.lg-lock-v2-open{overflow:hidden!important}
+@media(max-width:360px){
+ #lgLockV2 .lg-lock-stage{padding:25px 18px 22px}
+ #lgLockV2 .lg-lock-brand img{width:112px;height:64px}
+ #lgLockV2 .lg-lock-copy{font-size:14px}
+ #lgLockV2 .lg-lock-panel{padding:19px 18px 20px}
+ #lgLockV2 .lg-key{width:55px;height:55px}
+}
 </style>
 
 </head>
 <body>
 
-<div id="lgSiteLock" aria-label="L'GROUP LOCK">
- <div class="lg-lock-card">
-  <img class="lg-lock-logo" alt="L'GROUP" src="">
-  <div class="lg-lock-eyebrow">THERAPIST PRIVATE GUIDE</div>
-  <h1 class="lg-lock-title">PRIVATE ACCESS</h1>
-  <p class="lg-lock-sub">暗証番号を入力してください。</p>
-  <div class="lg-pin-dots"><span class="lg-pin-dot"></span><span class="lg-pin-dot"></span><span class="lg-pin-dot"></span><span class="lg-pin-dot"></span></div>
-  <div class="lg-keypad">
-   <button class="lg-key" type="button" data-n="1">1</button><button class="lg-key" type="button" data-n="2">2</button><button class="lg-key" type="button" data-n="3">3</button>
-   <button class="lg-key" type="button" data-n="4">4</button><button class="lg-key" type="button" data-n="5">5</button><button class="lg-key" type="button" data-n="6">6</button>
-   <button class="lg-key" type="button" data-n="7">7</button><button class="lg-key" type="button" data-n="8">8</button><button class="lg-key" type="button" data-n="9">9</button>
-   <button class="lg-key lg-clear" type="button" data-clear="1">CLEAR</button><button class="lg-key" type="button" data-n="0">0</button><button class="lg-key lg-clear" type="button" data-back="1">⌫</button>
+<div id="lgLockV2" aria-label="L'GROUP LOCK">
+  <div class="lg-lock-stage">
+    <div class="lg-lock-brand">
+      <img src="images/lgroup-logo.webp" alt="L'GROUP">
+      <div class="lg-lock-tag">BEAUTY FOR A BETTER TOMORROW</div>
+      <div class="lg-lock-copy">美しい明日を、共に。</div>
+      <div class="lg-lock-rule"></div>
+    </div>
+    <div class="lg-lock-panel">
+      <div class="lg-lock-icon"></div>
+      <p class="lg-lock-title">暗証番号を入力してください</p>
+      <div class="lg-lock-en">ENTER PIN CODE</div>
+      <div class="lg-pin-dots" aria-label="PIN">
+        <span class="lg-pin-dot"></span><span class="lg-pin-dot"></span>
+        <span class="lg-pin-dot"></span><span class="lg-pin-dot"></span>
+      </div>
+      <div class="lg-keypad">
+        <button class="lg-key" data-n="1" type="button">1</button>
+        <button class="lg-key" data-n="2" type="button">2</button>
+        <button class="lg-key" data-n="3" type="button">3</button>
+        <button class="lg-key" data-n="4" type="button">4</button>
+        <button class="lg-key" data-n="5" type="button">5</button>
+        <button class="lg-key" data-n="6" type="button">6</button>
+        <button class="lg-key" data-n="7" type="button">7</button>
+        <button class="lg-key" data-n="8" type="button">8</button>
+        <button class="lg-key" data-n="9" type="button">9</button>
+        <button class="lg-key small" data-clear="1" type="button">CLEAR</button>
+        <button class="lg-key" data-n="0" type="button">0</button>
+        <button class="lg-key small" data-back="1" type="button">⌫</button>
+      </div>
+      <div class="lg-lock-error" id="lgLockV2Error"></div>
+    </div>
+    <div class="lg-lock-bottom">
+      このサイトは L’GROUP 関係者専用サイトです。<br>
+      許可された方のみご利用いただけます。
+    </div>
   </div>
-  <div class="lg-lock-error" id="lgLockError"></div>
-  <div class="lg-lock-foot">L'GROUP / BEAUTY FOR A BETTER TOMORROW</div>
- </div>
 </div>
 
 <div class="page">
@@ -422,27 +516,63 @@ body.lg-site-locked{overflow:hidden!important}
 </section>
 </div>
 <div class="lg-bottom-wrap"><nav aria-label="Page navigation" class="lg-bottom-nav"><a class="lg-nav-link" data-page="rules" href="01_RULES.html">RULES</a><a class="lg-nav-link" data-page="before" href="02_BEFORE_JOIN_REVISED_V4.html">BEFORE JOIN</a><a class="lg-nav-link" data-page="first" href="03_FIRST_DAY.html">FIRST DAY</a><a class="lg-nav-link active" data-page="work" href="04_WORK_GUIDE.html">WORK GUIDE</a><a class="lg-nav-link" data-page="qa" href="q-and-a.html">Q&amp;A</a><a class="lg-nav-link" data-page="manual" href="manual.html">MANUAL</a></nav></div>
-<script id="lgroup-site-lock-script">
+<script id="lg-lock-v2-script">
 (function(){
- var KEY="lgroup_site_unlocked_2525",lock=document.getElementById("lgSiteLock");
- if(!lock)return;
- if(sessionStorage.getItem(KEY)==="1"){lock.remove();return;}
- document.body.classList.add("lg-site-locked");
- var pin="",dots=[].slice.call(lock.querySelectorAll(".lg-pin-dot")),err=document.getElementById("lgLockError");
- function paint(){dots.forEach(function(d,i){d.classList.toggle("on",i<pin.length);});}
- function check(){
-  if(pin.length<4)return;
-  if(pin==="2525"){
-   sessionStorage.setItem(KEY,"1");document.body.classList.remove("lg-site-locked");
-   lock.style.transition="opacity .18s ease";lock.style.opacity="0";setTimeout(function(){lock.remove();},190);
-  }else{err.textContent="暗証番号が違います。";pin="";paint();}
- }
- lock.addEventListener("click",function(e){
-  var b=e.target.closest("button");if(!b)return;err.textContent="";
-  if(b.dataset.clear){pin="";paint();return;}
-  if(b.dataset.back){pin=pin.slice(0,-1);paint();return;}
-  if(b.dataset.n&&pin.length<4){pin+=b.dataset.n;paint();check();}
- });
+  var AUTH_KEY='lg-auth-v2';
+  var IDLE_KEY='lg-auth-v2-last';
+  var IDLE_MS=60*60*1000;
+  var lock=document.getElementById('lgLockV2');
+  if(!lock)return;
+
+  function unlocked(){
+    return sessionStorage.getItem(AUTH_KEY)==='1' &&
+      (Date.now()-Number(sessionStorage.getItem(IDLE_KEY)||0) < IDLE_MS);
+  }
+  function touch(){
+    if(sessionStorage.getItem(AUTH_KEY)==='1') sessionStorage.setItem(IDLE_KEY,String(Date.now()));
+  }
+  function openSite(){
+    sessionStorage.setItem(AUTH_KEY,'1');
+    sessionStorage.setItem(IDLE_KEY,String(Date.now()));
+    document.body.classList.remove('lg-lock-v2-open');
+    lock.style.transition='opacity .22s ease';
+    lock.style.opacity='0';
+    setTimeout(function(){lock.remove();},230);
+  }
+  if(unlocked()){ lock.remove(); return; }
+  sessionStorage.removeItem(AUTH_KEY);
+  sessionStorage.removeItem(IDLE_KEY);
+  document.body.classList.add('lg-lock-v2-open');
+
+  var pin='', dots=[].slice.call(lock.querySelectorAll('.lg-pin-dot'));
+  var err=document.getElementById('lgLockV2Error');
+  function paint(){dots.forEach(function(d,i){d.classList.toggle('on',i<pin.length);});}
+  function resetError(msg){err.textContent=msg||'';}
+  function validate(){
+    if(pin.length!==4)return;
+    if(pin==='2525'){resetError('');openSite();}
+    else{resetError('暗証番号が違います。');pin='';paint();}
+  }
+  lock.addEventListener('click',function(e){
+    var b=e.target.closest('button'); if(!b)return;
+    resetError('');
+    if(b.dataset.clear){pin='';paint();return;}
+    if(b.dataset.back){pin=pin.slice(0,-1);paint();return;}
+    if(b.dataset.n && pin.length<4){pin+=b.dataset.n;paint();validate();}
+  });
+
+  ['pointerdown','keydown','touchstart','scroll'].forEach(function(ev){
+    document.addEventListener(ev,touch,{passive:true});
+  });
+
+  // Existing LOCK buttons on the guide can re-lock the site.
+  document.addEventListener('click',function(e){
+    var b=e.target.closest('#lockout,.lockout,[data-lockout]');
+    if(!b)return;
+    sessionStorage.removeItem(AUTH_KEY);
+    sessionStorage.removeItem(IDLE_KEY);
+    location.reload();
+  });
 })();
 </script>
 
