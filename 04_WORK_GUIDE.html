@@ -248,8 +248,48 @@ body.lg-top-page .lg-bottom-wrap{flex:0 0 auto;margin-top:0}
 .lg-nav-link.active{background:#fff!important;color:#17130f!important;font-weight:600!important;box-shadow:inset 0 -2px 0 #b08a45!important;}
 .lg-bottom-wrap{width:100%!important;max-width:430px!important;margin:16px auto 0!important;padding:0!important;background:#fff!important;box-sizing:border-box!important;}
 body.lg-top-page .lg-bottom-wrap{display:none!important;}
-</style></head>
+</style>
+<style id="lgroup-site-lock-style">
+#lgSiteLock{position:fixed;inset:0;z-index:999999;background:#f3f0ea;display:flex;align-items:center;justify-content:center;padding:20px;font-family:"Yu Mincho","Hiragino Mincho ProN",serif}
+#lgSiteLock *{box-sizing:border-box}
+#lgSiteLock .lg-lock-card{width:min(100%,370px);background:#fbfaf7;border:1px solid #ddd5ca;border-radius:20px;padding:28px 24px 24px;box-shadow:0 20px 55px rgba(38,32,25,.10);text-align:center}
+#lgSiteLock .lg-lock-logo{width:118px;height:72px;object-fit:contain;margin:0 auto 14px;display:block}
+#lgSiteLock .lg-lock-eyebrow{font:9px Georgia,"Times New Roman",serif;letter-spacing:.20em;color:#a18350;margin-bottom:6px}
+#lgSiteLock .lg-lock-title{font:400 24px Georgia,"Times New Roman",serif;letter-spacing:.05em;color:#1f1c18;margin:0 0 6px}
+#lgSiteLock .lg-lock-sub{font-size:10px;line-height:1.7;color:#746d64;margin:0 0 18px}
+#lgSiteLock .lg-pin-dots{height:32px;display:flex;align-items:center;justify-content:center;gap:13px;margin-bottom:17px}
+#lgSiteLock .lg-pin-dot{width:9px;height:9px;border-radius:50%;border:1px solid #b8afa3;background:transparent}
+#lgSiteLock .lg-pin-dot.on{background:#a9874f;border-color:#a9874f}
+#lgSiteLock .lg-keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-width:250px;margin:0 auto}
+#lgSiteLock .lg-key{height:48px;border:1px solid #ddd6cc;border-radius:12px;background:#fff;color:#28231e;font:17px Georgia,"Times New Roman",serif;cursor:pointer}
+#lgSiteLock .lg-key:active{background:#eee8df}
+#lgSiteLock .lg-key.lg-clear{font-size:10px;letter-spacing:.08em;color:#81796f}
+#lgSiteLock .lg-lock-error{height:20px;margin-top:11px;font-size:10px;color:#9d4d45}
+#lgSiteLock .lg-lock-foot{margin-top:12px;padding-top:12px;border-top:1px solid #e4ded5;font:8px Georgia,"Times New Roman",serif;letter-spacing:.14em;color:#9b9287}
+body.lg-site-locked{overflow:hidden!important}
+</style>
+
+</head>
 <body>
+
+<div id="lgSiteLock" aria-label="L'GROUP LOCK">
+ <div class="lg-lock-card">
+  <img class="lg-lock-logo" alt="L'GROUP" src="">
+  <div class="lg-lock-eyebrow">THERAPIST PRIVATE GUIDE</div>
+  <h1 class="lg-lock-title">PRIVATE ACCESS</h1>
+  <p class="lg-lock-sub">暗証番号を入力してください。</p>
+  <div class="lg-pin-dots"><span class="lg-pin-dot"></span><span class="lg-pin-dot"></span><span class="lg-pin-dot"></span><span class="lg-pin-dot"></span></div>
+  <div class="lg-keypad">
+   <button class="lg-key" type="button" data-n="1">1</button><button class="lg-key" type="button" data-n="2">2</button><button class="lg-key" type="button" data-n="3">3</button>
+   <button class="lg-key" type="button" data-n="4">4</button><button class="lg-key" type="button" data-n="5">5</button><button class="lg-key" type="button" data-n="6">6</button>
+   <button class="lg-key" type="button" data-n="7">7</button><button class="lg-key" type="button" data-n="8">8</button><button class="lg-key" type="button" data-n="9">9</button>
+   <button class="lg-key lg-clear" type="button" data-clear="1">CLEAR</button><button class="lg-key" type="button" data-n="0">0</button><button class="lg-key lg-clear" type="button" data-back="1">⌫</button>
+  </div>
+  <div class="lg-lock-error" id="lgLockError"></div>
+  <div class="lg-lock-foot">L'GROUP / BEAUTY FOR A BETTER TOMORROW</div>
+ </div>
+</div>
+
 <div class="page">
 <header class="lg-common-header">
 <div class="lg-header-row"><a aria-label="TOP" class="lg-logo-link" href="index.html"><img alt="L'GROUP" src="images/lgroup-logo.webp"/></a></div>
@@ -381,5 +421,30 @@ body.lg-top-page .lg-bottom-wrap{display:none!important;}
 </div>
 </section>
 </div>
-<div class="lg-bottom-wrap"><nav aria-label="Page navigation" class="lg-bottom-nav"><a class="lg-nav-link" data-page="rules" href="01_RULES.html">RULES</a><a class="lg-nav-link" data-page="before" href="02_BEFORE_JOIN_REVISED_V4.html">BEFORE JOIN</a><a class="lg-nav-link" data-page="first" href="03_FIRST_DAY.html">FIRST DAY</a><a class="lg-nav-link active" data-page="work" href="04_WORK_GUIDE.html">WORK GUIDE</a><a class="lg-nav-link" data-page="qa" href="q-and-a.html">Q&amp;A</a><a class="lg-nav-link" data-page="manual" href="manual.html">MANUAL</a></nav></div></body>
+<div class="lg-bottom-wrap"><nav aria-label="Page navigation" class="lg-bottom-nav"><a class="lg-nav-link" data-page="rules" href="01_RULES.html">RULES</a><a class="lg-nav-link" data-page="before" href="02_BEFORE_JOIN_REVISED_V4.html">BEFORE JOIN</a><a class="lg-nav-link" data-page="first" href="03_FIRST_DAY.html">FIRST DAY</a><a class="lg-nav-link active" data-page="work" href="04_WORK_GUIDE.html">WORK GUIDE</a><a class="lg-nav-link" data-page="qa" href="q-and-a.html">Q&amp;A</a><a class="lg-nav-link" data-page="manual" href="manual.html">MANUAL</a></nav></div>
+<script id="lgroup-site-lock-script">
+(function(){
+ var KEY="lgroup_site_unlocked_2525",lock=document.getElementById("lgSiteLock");
+ if(!lock)return;
+ if(sessionStorage.getItem(KEY)==="1"){lock.remove();return;}
+ document.body.classList.add("lg-site-locked");
+ var pin="",dots=[].slice.call(lock.querySelectorAll(".lg-pin-dot")),err=document.getElementById("lgLockError");
+ function paint(){dots.forEach(function(d,i){d.classList.toggle("on",i<pin.length);});}
+ function check(){
+  if(pin.length<4)return;
+  if(pin==="2525"){
+   sessionStorage.setItem(KEY,"1");document.body.classList.remove("lg-site-locked");
+   lock.style.transition="opacity .18s ease";lock.style.opacity="0";setTimeout(function(){lock.remove();},190);
+  }else{err.textContent="暗証番号が違います。";pin="";paint();}
+ }
+ lock.addEventListener("click",function(e){
+  var b=e.target.closest("button");if(!b)return;err.textContent="";
+  if(b.dataset.clear){pin="";paint();return;}
+  if(b.dataset.back){pin=pin.slice(0,-1);paint();return;}
+  if(b.dataset.n&&pin.length<4){pin+=b.dataset.n;paint();check();}
+ });
+})();
+</script>
+
+</body>
 </html>
