@@ -1,0 +1,73 @@
+name: Fix lock flicker
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/lock-flicker-fix.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    if: ${{ !contains(github.event.head_commit.message || '', '[lockfix-done]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Patch common lock
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          PRECHECK='''<style id="lg-auth-precheck-style">html.lg-auth-ready #lgLockV2{display:none!important}</style>\n<script id="lg-auth-precheck">\n(function(){var A='lg-auth-v2',L='lg-auth-v2-last',T=60*60*1000;try{var last=Number(sessionStorage.getItem(L)||0);var ok=sessionStorage.getItem(A)==='1'&&last>0&&(Date.now()-last)<T;if(ok){document.documentElement.classList.add('lg-auth-ready');}else{sessionStorage.removeItem(A);sessionStorage.removeItem(L);document.documentElement.classList.add('lg-auth-needed');}}catch(e){document.documentElement.classList.add('lg-auth-needed');}})();\n</script>'''
+          LOCK_SCRIPT='''<script id="lg-lock-v2-script">\n(function(){\nvar AUTH_KEY='lg-auth-v2',IDLE_KEY='lg-auth-v2-last',IDLE_MS=60*60*1000;\nvar lock=document.getElementById('lgLockV2');if(!lock)return;var expiryTimer=null,lastWrite=0;\nfunction lastActivity(){return Number(sessionStorage.getItem(IDLE_KEY)||0)}\nfunction authenticated(){return sessionStorage.getItem(AUTH_KEY)==='1'}\nfunction valid(){var t=lastActivity();return authenticated()&&t>0&&(Date.now()-t)<IDLE_MS}\nfunction clearAuth(){sessionStorage.removeItem(AUTH_KEY);sessionStorage.removeItem(IDLE_KEY)}\nfunction expire(){if(expiryTimer){clearTimeout(expiryTimer);expiryTimer=null}clearAuth();location.reload()}\nfunction armExpiry(){if(expiryTimer){clearTimeout(expiryTimer);expiryTimer=null}if(!authenticated())return;var remain=IDLE_MS-(Date.now()-lastActivity());if(remain<=0){expire();return}expiryTimer=setTimeout(expire,remain+25)}\nfunction touch(){if(!authenticated())return;var now=Date.now(),last=lastActivity();if(!last||now-last>=IDLE_MS){expire();return}if(now-lastWrite<1000)return;lastWrite=now;sessionStorage.setItem(IDLE_KEY,String(now));armExpiry()}\nfunction removeLock(){document.documentElement.classList.add('lg-auth-ready');document.body.classList.remove('lg-lock-v2-open');if(lock&&lock.parentNode)lock.parentNode.removeChild(lock)}\nfunction openSite(){sessionStorage.setItem(AUTH_KEY,'1');sessionStorage.setItem(IDLE_KEY,String(Date.now()));document.documentElement.classList.add('lg-auth-ready');document.body.classList.remove('lg-lock-v2-open');lock.style.transition='opacity .22s ease';lock.style.opacity='0';setTimeout(function(){if(lock&&lock.parentNode)lock.parentNode.removeChild(lock)},230);armExpiry()}\n['pointerdown','keydown','touchstart','scroll'].forEach(function(ev){document.addEventListener(ev,touch,{passive:true})});\nwindow.addEventListener('focus',function(){if(!authenticated())return;if(Date.now()-lastActivity()>=IDLE_MS){expire();return}touch()});\ndocument.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible'&&authenticated()){if(Date.now()-lastActivity()>=IDLE_MS){expire();return}armExpiry()}});\ndocument.addEventListener('click',function(e){var b=e.target.closest('#lockout,.lockout,[data-lockout]');if(!b)return;clearAuth();location.reload()});\nif(valid()){removeLock();armExpiry();return}\nclearAuth();document.documentElement.classList.remove('lg-auth-ready');document.documentElement.classList.add('lg-auth-needed');document.body.classList.add('lg-lock-v2-open');lock.style.display='';\nvar pin='',dots=[].slice.call(lock.querySelectorAll('.lg-pin-dot')),err=document.getElementById('lgLockV2Error');\nfunction paint(){dots.forEach(function(d,i){d.classList.toggle('on',i<pin.length)})}\nfunction resetError(msg){if(err)err.textContent=msg||''}\nfunction validate(){if(pin.length!==4)return;if(pin==='2525'){resetError('');openSite()}else{resetError('暗証番号が違います。');pin='';paint()}}\nlock.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;resetError('');if(b.dataset.clear){pin='';paint();return}if(b.dataset.back){pin=pin.slice(0,-1);paint();return}if(b.dataset.n&&pin.length<4){pin+=b.dataset.n;paint();validate()}});\n})();\n</script>'''
+          rx=re.compile(r'<script\s+id=["\']lg-lock-v2-script["\']>.*?</script>',re.S|re.I)
+          excluded={'image-support.html','01_RULES(1).html','05_QA(1).html','07_MANUAL_REVISED.html','COURSE_BAG_LGROUP_FIXED_LOGO.html'}
+          changed=[]
+          for p in Path('.').rglob('*.html'):
+            if p.name in excluded or '.git' in p.parts: continue
+            text=p.read_text(encoding='utf-8')
+            if 'id="lg-lock-v2-script"' not in text and "id='lg-lock-v2-script'" not in text: continue
+            if 'id="lg-auth-precheck"' not in text:
+              text,n=re.subn(r'<head([^>]*)>',lambda m:m.group(0)+'\n'+PRECHECK,text,count=1,flags=re.I)
+              if n!=1: raise SystemExit('HEAD not found: '+str(p))
+            text,n=rx.subn(LOCK_SCRIPT,text,count=1)
+            if n!=1: raise SystemExit('lock script replace failed: '+str(p))
+            if "pin==='2525'" not in text or 'IDLE_MS=60*60*1000' not in text: raise SystemExit('validation failed: '+str(p))
+            p.write_text(text,encoding='utf-8');changed.append(str(p))
+          print('patched',len(changed),'files')
+          print('\n'.join(changed))
+          if not changed: raise SystemExit('No protected pages patched')
+          PY
+      - name: Validate and commit
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          count=0
+          for p in Path('.').rglob('*.html'):
+            s=p.read_text(encoding='utf-8')
+            if 'id="lg-lock-v2-script"' in s:
+              assert 'id="lg-auth-precheck"' in s,p
+              assert s.find('id="lg-auth-precheck"')<s.lower().find('</head>'),p
+              assert "pin==='2525'" in s,p
+              assert 'IDLE_MS=60*60*1000' in s,p
+              assert 'armExpiry()' in s,p
+              count+=1
+          assert count>0
+          support=Path('image-support.html').read_text(encoding='utf-8')
+          assert 'f19ccf1eb395a4d74606c59b491ecd0a37b5f26eae0ec55c33bbd2743c658b26' in support
+          print('validated',count,'protected files; image-support PIN preserved')
+          PY
+          rm -f .github/workflows/lock-flicker-fix.yml
+          git config user.name "L GROUP maintenance"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A
+          git commit -m "Fix lock flicker and 60-minute inactivity [lockfix-done]"
+          git push origin main
