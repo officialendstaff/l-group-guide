@@ -2,6 +2,10 @@
 
 <html lang="ja">
 <head>
+<style id="lg-auth-precheck-style">html.lg-auth-ready #lgLockV2{display:none!important}</style>
+<script id="lg-auth-precheck">
+(function(){var A='lg-auth-v2',L='lg-auth-v2-last',T=60*60*1000;try{var last=Number(sessionStorage.getItem(L)||0);var ok=sessionStorage.getItem(A)==='1'&&last>0&&(Date.now()-last)<T;if(ok){document.documentElement.classList.add('lg-auth-ready');}else{sessionStorage.removeItem(A);sessionStorage.removeItem(L);document.documentElement.classList.add('lg-auth-needed');}}catch(e){document.documentElement.classList.add('lg-auth-needed');}})();
+</script>
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1,viewport-fit=cover" name="viewport"/>
 <title>L'GROUP | MANUAL</title>
@@ -482,61 +486,28 @@ body.lg-lock-v2-open{overflow:hidden!important}
 
 <script id="lg-lock-v2-script">
 (function(){
-  var AUTH_KEY='lg-auth-v2';
-  var IDLE_KEY='lg-auth-v2-last';
-  var IDLE_MS=60*60*1000;
-  var lock=document.getElementById('lgLockV2');
-  if(!lock)return;
-
-  function unlocked(){
-    return sessionStorage.getItem(AUTH_KEY)==='1' &&
-      (Date.now()-Number(sessionStorage.getItem(IDLE_KEY)||0) < IDLE_MS);
-  }
-  function touch(){
-    if(sessionStorage.getItem(AUTH_KEY)==='1') sessionStorage.setItem(IDLE_KEY,String(Date.now()));
-  }
-  function openSite(){
-    sessionStorage.setItem(AUTH_KEY,'1');
-    sessionStorage.setItem(IDLE_KEY,String(Date.now()));
-    document.body.classList.remove('lg-lock-v2-open');
-    lock.style.transition='opacity .22s ease';
-    lock.style.opacity='0';
-    setTimeout(function(){lock.remove();},230);
-  }
-  if(unlocked()){ lock.remove(); return; }
-  sessionStorage.removeItem(AUTH_KEY);
-  sessionStorage.removeItem(IDLE_KEY);
-  document.body.classList.add('lg-lock-v2-open');
-
-  var pin='', dots=[].slice.call(lock.querySelectorAll('.lg-pin-dot'));
-  var err=document.getElementById('lgLockV2Error');
-  function paint(){dots.forEach(function(d,i){d.classList.toggle('on',i<pin.length);});}
-  function resetError(msg){err.textContent=msg||'';}
-  function validate(){
-    if(pin.length!==4)return;
-    if(pin==='2525'){resetError('');openSite();}
-    else{resetError('暗証番号が違います。');pin='';paint();}
-  }
-  lock.addEventListener('click',function(e){
-    var b=e.target.closest('button'); if(!b)return;
-    resetError('');
-    if(b.dataset.clear){pin='';paint();return;}
-    if(b.dataset.back){pin=pin.slice(0,-1);paint();return;}
-    if(b.dataset.n && pin.length<4){pin+=b.dataset.n;paint();validate();}
-  });
-
-  ['pointerdown','keydown','touchstart','scroll'].forEach(function(ev){
-    document.addEventListener(ev,touch,{passive:true});
-  });
-
-  // Existing LOCK buttons on the guide can re-lock the site.
-  document.addEventListener('click',function(e){
-    var b=e.target.closest('#lockout,.lockout,[data-lockout]');
-    if(!b)return;
-    sessionStorage.removeItem(AUTH_KEY);
-    sessionStorage.removeItem(IDLE_KEY);
-    location.reload();
-  });
+var AUTH_KEY='lg-auth-v2',IDLE_KEY='lg-auth-v2-last',IDLE_MS=60*60*1000;
+var lock=document.getElementById('lgLockV2');if(!lock)return;var expiryTimer=null,lastWrite=0;
+function lastActivity(){return Number(sessionStorage.getItem(IDLE_KEY)||0)}
+function authenticated(){return sessionStorage.getItem(AUTH_KEY)==='1'}
+function valid(){var t=lastActivity();return authenticated()&&t>0&&(Date.now()-t)<IDLE_MS}
+function clearAuth(){sessionStorage.removeItem(AUTH_KEY);sessionStorage.removeItem(IDLE_KEY)}
+function expire(){if(expiryTimer){clearTimeout(expiryTimer);expiryTimer=null}clearAuth();location.reload()}
+function armExpiry(){if(expiryTimer){clearTimeout(expiryTimer);expiryTimer=null}if(!authenticated())return;var remain=IDLE_MS-(Date.now()-lastActivity());if(remain<=0){expire();return}expiryTimer=setTimeout(expire,remain+25)}
+function touch(){if(!authenticated())return;var now=Date.now(),last=lastActivity();if(!last||now-last>=IDLE_MS){expire();return}if(now-lastWrite<1000)return;lastWrite=now;sessionStorage.setItem(IDLE_KEY,String(now));armExpiry()}
+function removeLock(){document.documentElement.classList.add('lg-auth-ready');document.body.classList.remove('lg-lock-v2-open');if(lock&&lock.parentNode)lock.parentNode.removeChild(lock)}
+function openSite(){sessionStorage.setItem(AUTH_KEY,'1');sessionStorage.setItem(IDLE_KEY,String(Date.now()));document.documentElement.classList.add('lg-auth-ready');document.body.classList.remove('lg-lock-v2-open');lock.style.transition='opacity .22s ease';lock.style.opacity='0';setTimeout(function(){if(lock&&lock.parentNode)lock.parentNode.removeChild(lock)},230);armExpiry()}
+['pointerdown','keydown','touchstart','scroll'].forEach(function(ev){document.addEventListener(ev,touch,{passive:true})});
+window.addEventListener('focus',function(){if(!authenticated())return;if(Date.now()-lastActivity()>=IDLE_MS){expire();return}touch()});
+document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible'&&authenticated()){if(Date.now()-lastActivity()>=IDLE_MS){expire();return}armExpiry()}});
+document.addEventListener('click',function(e){var b=e.target.closest('#lockout,.lockout,[data-lockout]');if(!b)return;clearAuth();location.reload()});
+if(valid()){removeLock();armExpiry();return}
+clearAuth();document.documentElement.classList.remove('lg-auth-ready');document.documentElement.classList.add('lg-auth-needed');document.body.classList.add('lg-lock-v2-open');lock.style.display='';
+var pin='',dots=[].slice.call(lock.querySelectorAll('.lg-pin-dot')),err=document.getElementById('lgLockV2Error');
+function paint(){dots.forEach(function(d,i){d.classList.toggle('on',i<pin.length)})}
+function resetError(msg){if(err)err.textContent=msg||''}
+function validate(){if(pin.length!==4)return;if(pin==='2525'){resetError('');openSite()}else{resetError('暗証番号が違います。');pin='';paint()}}
+lock.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;resetError('');if(b.dataset.clear){pin='';paint();return}if(b.dataset.back){pin=pin.slice(0,-1);paint();return}if(b.dataset.n&&pin.length<4){pin+=b.dataset.n;paint();validate()}});
 })();
 </script>
 
