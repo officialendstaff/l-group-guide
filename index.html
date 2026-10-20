@@ -84,7 +84,7 @@ body{min-height:100dvh;overflow:hidden}
 </section>
 <script>
 (function(){
-  var AUTH_KEY='lg-auth-v2', IDLE_KEY='lg-auth-v2-last', IDLE_MS=60*60*1000;
+  var AUTH_KEY='lg-auth-v3', IDLE_KEY='lg-auth-v3-last', IDLE_MS=60*60*1000;
   function valid(){var last=Number(sessionStorage.getItem(IDLE_KEY)||0);return sessionStorage.getItem(AUTH_KEY)==='1'&&last>0&&(Date.now()-last)<IDLE_MS}
   function go(){location.replace('00_TOP_REVISED_NO_DUP_ARROW.html')}
   if(valid()){sessionStorage.setItem(IDLE_KEY,String(Date.now()));go();return}
